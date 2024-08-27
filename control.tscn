@@ -1,0 +1,192 @@
+[gd_scene load_steps=2 format=3 uid="uid://c05bu6uotbiql"]
+
+[ext_resource type="Script" path="res://control.gd" id="1_ce7a7"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ce7a7")
+
+[node name="PlayPause" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.5
+offset_top = -15.5
+offset_right = 23.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Test speech"
+
+[node name="Stop" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 66.5
+offset_top = -15.5
+offset_right = 109.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+disabled = true
+text = "Stop"
+
+[node name="PlaySecondAudio" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = 32.5
+offset_right = 56.0
+offset_bottom = 63.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Second audio"
+
+[node name="VoiceSelection" type="OptionButton" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -58.0
+offset_right = 16.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "Voices"
+popup/item_0/separator = true
+
+[node name="VolumeLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -293.5
+offset_top = 74.5
+offset_right = -234.5
+offset_bottom = 97.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Volume
+"
+
+[node name="PitchLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -293.5
+offset_top = 107.5
+offset_right = -234.5
+offset_bottom = 130.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Pitch
+"
+
+[node name="RateLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -293.5
+offset_top = 138.5
+offset_right = -234.5
+offset_bottom = 161.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Rate"
+
+[node name="Volume" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.0
+offset_top = 80.0
+offset_right = 223.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+
+[node name="Pitch" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.0
+offset_top = 112.0
+offset_right = 223.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 200.0
+value = 100.0
+
+[node name="Rate" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.0
+offset_top = 144.0
+offset_right = 223.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = 5.0
+max_value = 600.0
+value = 100.0
+
+[node name="DefaultValues" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 236.5
+offset_top = 104.5
+offset_right = 355.5
+offset_bottom = 135.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Default values"
+
+[connection signal="pressed" from="PlayPause" to="." method="_on_play_pause_pressed"]
+[connection signal="pressed" from="Stop" to="." method="_on_stop_pressed"]
+[connection signal="pressed" from="PlaySecondAudio" to="." method="_on_play_second_audio_pressed"]
+[connection signal="item_selected" from="VoiceSelection" to="." method="_on_voice_selection_item_selected"]
+[connection signal="pressed" from="DefaultValues" to="." method="_on_default_values_pressed"]
