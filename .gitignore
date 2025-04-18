@@ -47,6 +47,9 @@ gmon.out
 *.swo
 *.swp
 
+# Temp files
+~*.*
+
 # Qt project files
 *.config
 *.creator
