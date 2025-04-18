@@ -73,6 +73,7 @@ grow_vertical = 2
 selected = 0
 item_count = 1
 popup/item_0/text = "Voices"
+popup/item_0/id = 0
 popup/item_0/separator = true
 
 [node name="VolumeLabel" type="Label" parent="."]

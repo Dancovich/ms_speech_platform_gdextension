@@ -22,6 +22,7 @@ func _ready() -> void:
 	if available_voices.size() > 0:
 		current_voice_index = 0
 		for voice in available_voices:
+			print("Found voice: " + str(voice))
 			voice_selection.add_item("%s - (%s, %s)" % [voice["name"], voice["gender"],voice["language"]], index)
 			index += 1
 
@@ -34,8 +35,9 @@ func _on_play_pause_pressed() -> void:
 		var v := clampf(volume.value, 0, 100) / 100.0
 		var p := clampf(pitch.value, 0, 200) / 100.0
 		var r := clampf(rate.value, 5, 600) / 100.0
-		var selected_voice: String = available_voices[current_voice_index]["id"] if current_voice_index > -1 else ""
-		WinRtSpeechSynthesizer.speak("Testing Windows 10 speech synthesis integration.", selected_voice, v, p, r)
+		var selected_voice: Dictionary = available_voices[current_voice_index] if current_voice_index > -1 else {"id": "", "language": ""}
+		var phrase := "Testando a integração com síntese de fala do Windows 10." if selected_voice["language"] == "pt-BR" else "Testing Windows 10 speech synthesis integration."
+		WinRtSpeechSynthesizer.speak(phrase, selected_voice["id"], v, p, r)
 
 
 func _on_play_second_audio_pressed() -> void:
