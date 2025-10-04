@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="WinRtSpeechSynthesizer" inherits="Node"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Uses WinRT Speech Synthesis to generate synthesized speech from text.
+	</brief_description>
+	<description>
+		Uses WinRT Speech Synthesis to generate synthesized speech from text. Supports both plain text and SSML 1.0 markup language.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="is_paused" qualifiers="const">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] if there is an utterance in the queue and it is paused.
+			</description>
+		</method>
+		<method name="is_speaking" qualifiers="const">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] if there is an utterance currently being played.
+			</description>
+		</method>
+		<method name="list_voices" qualifiers="const">
+			<return type="Dictionary[]" />
+			<description>
+				Returns a list of installed voices on Windows. Only MS signed voices are supported.
+
+				The returned dictionary will have the following keys: 
+				[code]id[/code]: the voice ID, used as an argument to [code]speak[/code] to use that voice. 
+				[code]name[/code]: a human readable name of the voice. 
+				[code]language[/code]: a IETF BCP 47 language tag. 
+				[code]description[/code]: longer name for the voice. 
+				[code]gender[/code]: identifies the voice as being spoken by one of that gender.
+			</description>
+		</method>
+		<method name="pause">
+			<return type="void" />
+			<description>
+				If there is an utterance being played, pauses the playback.
+			</description>
+		</method>
+		<method name="resume">
+			<return type="void" />
+			<description>
+				If there is an utterance in the paused state, resumes playback.
+			</description>
+		</method>
+		<method name="speak">
+			<return type="void" />
+			<param index="0" name="text" type="String" />
+			<param index="1" name="voice_id" type="String" default="&quot;&quot;" />
+			<param index="2" name="volume" type="float" default="1.0" />
+			<param index="3" name="pitch" type="float" default="1.0" />
+			<param index="4" name="speech_rate" type="float" default="1.0" />
+			<param index="5" name="interrupt" type="bool" default="false" />
+			<param index="6" name="utterance_id" type="int" default="0" />
+			<description>
+				Adds the [code]text[/code] to the utterance queue. Utterances are played back one after the other.
+
+				[code]volume[/code] range is between 0.0 and 1.0.
+				[code]pitch[/code] range is between 0.0 and 2.0.
+				[code]speech_rate[/code] range is between 0.5 and 6.0.
+				If [code]interrupt[/code] is [code]true[/code], current playback is stopped and the queue is cleared before adding this new text.
+				[code]utterance_id[/code] can be used to identify an utterance. The signals fired by the utterance will receive this ID as argument.
+			</description>
+		</method>
+		<method name="stop">
+			<return type="void" />
+			<description>
+				Stops playback and clears the utterance queue.
+			</description>
+		</method>
+	</methods>
+	<signals>
+		<signal name="speech_canceled">
+			<param index="0" name="utterance_id" type="int" />
+			<description>
+				Fired when an utterance can't be played for some reason. calling [code]stop[/code] cancels all queued utterances.
+			</description>
+		</signal>
+		<signal name="speech_ended">
+			<param index="0" name="utterance_id" type="int" />
+			<description>
+				Fired when an utterance finishes being played.
+			</description>
+		</signal>
+		<signal name="speech_started">
+			<param index="0" name="utterance_id" type="int" />
+			<description>
+				Fired when an utterance starts being played.
+			</description>
+		</signal>
+		<signal name="speech_word_boundary_reached">
+			<param index="0" name="utterance_id" type="int" />
+			<param index="1" name="index" type="int" />
+			<description>
+				Fired when an utterance word boundary is reached. Useful if you want to trigger text
+				effects synchronized with that word being spoken.
+			</description>
+		</signal>
+	</signals>
+</class>
