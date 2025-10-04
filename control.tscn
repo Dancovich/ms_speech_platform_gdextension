@@ -186,8 +186,14 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Default values"
 
+[node name="Synthesizer" type="WinRtSpeechSynthesizer" parent="."]
+
 [connection signal="pressed" from="PlayPause" to="." method="_on_play_pause_pressed"]
 [connection signal="pressed" from="Stop" to="." method="_on_stop_pressed"]
 [connection signal="pressed" from="PlaySecondAudio" to="." method="_on_play_second_audio_pressed"]
 [connection signal="item_selected" from="VoiceSelection" to="." method="_on_voice_selection_item_selected"]
 [connection signal="pressed" from="DefaultValues" to="." method="_on_default_values_pressed"]
+[connection signal="speech_canceled" from="Synthesizer" to="." method="_on_synthesizer_speech_canceled"]
+[connection signal="speech_ended" from="Synthesizer" to="." method="_on_synthesizer_speech_ended"]
+[connection signal="speech_started" from="Synthesizer" to="." method="_on_synthesizer_speech_started"]
+[connection signal="speech_word_boundary_reached" from="Synthesizer" to="." method="_on_synthesizer_speech_word_boundary_reached"]

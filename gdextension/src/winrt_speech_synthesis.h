@@ -3,7 +3,7 @@
 
 #include <winrt/windows.media.speechsynthesis.h>
 #include <winrt/windows.media.playback.h>
-#include <godot_cpp/classes/object.hpp>
+#include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
 namespace godot
@@ -13,30 +13,47 @@ namespace godot
 	using namespace Windows::Media::SpeechSynthesis;
 	using namespace Windows::Media::Playback;
 
-	class WinRtSpeechSynthesizer : public Object
+	class WinRtSpeechSynthesizer : public Node
 	{
-		GDCLASS(WinRtSpeechSynthesizer, Object)
+		GDCLASS(WinRtSpeechSynthesizer, Node)
 
 	public:
-		TypedArray<Dictionary> AllVoices() const;
-		void SpeakWithVoice(const String& text, const String& voiceId, const double& volume, const double& pitch, const double& rate);
-		bool Pause();
-		bool Resume();
-		void Stop();
-		bool IsSpeaking() const;
-		bool IsPaused() const;
+		void WinRtSpeechSynthesizer::_ready() override;
+		void WinRtSpeechSynthesizer::_process(double delta) override;
+		TypedArray<Dictionary> list_voices() const;
+		void speak(const String& text, const String& voiceId, const float& volume, const float& pitch, const float& rate, const bool& interrupt, const int& utterance_id);
+		void pause();
+		void resume();
+		void stop();
+		bool is_speaking() const;
+		bool is_paused() const;
 
 		WinRtSpeechSynthesizer();
 		~WinRtSpeechSynthesizer();
 
 
 	private:
-		std::shared_ptr<SpeechSynthesizer> m_SpeechSynth;
-		std::shared_ptr<MediaPlayer> m_MediaPlayer;
-		bool m_IsSpeaking;
-		bool m_IsPaused;
+		struct TTSUtterance {
+			String text;
+			String voice;
+			float volume = 1.f;
+			float pitch = 1.f;
+			float rate = 1.f;
+			int id = 0;
+		};
 
-		void Speak(const String& text, const double& volume, const double& pitch, const double& rate);
+		const int NO_UTTERANCE_ID = std::numeric_limits<int>::min();
+
+		SpeechSynthesizer synthesizer;
+		MediaPlayer media_player;
+		
+		bool paused = false;
+		int pending_utterance_id = NO_UTTERANCE_ID;
+		List<TTSUtterance> queue;
+
+		void _process_queue();
+		bool WinRtSpeechSynthesizer::is_ssml(TTSUtterance& message) const;
+
 
 	protected:
 		static void _bind_methods();

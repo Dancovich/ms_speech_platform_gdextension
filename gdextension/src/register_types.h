@@ -6,6 +6,6 @@
 using namespace godot;
 
 void initialize_winrt_speech_synthesis_module(ModuleInitializationLevel p_level);
-void uninitialize_winrt_speech_synthesis_module(ModuleInitializationLevel p_level);
+// void uninitialize_winrt_speech_synthesis_module(ModuleInitializationLevel p_level);
 
 #endif

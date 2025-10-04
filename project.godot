@@ -12,5 +12,5 @@ config_version=5
 
 config/name="WinRT Speech Synthesis Extension"
 run/main_scene="res://control.tscn"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
